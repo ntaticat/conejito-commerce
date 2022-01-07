@@ -1,11 +1,11 @@
 import React from 'react';
-import PadNumerico from '../PadNumerico/PadNumerico';
 import PageHeader from '../PageHeader/PageHeader';
 
-const AdeudoPage = () => {
+const ProductoPage = () => {
   return (
     <div className='relative'>
-      <PageHeader titulo={"Adeudo"} />
+      <PageHeader titulo={"Producto"} />
+      
       <div className="p-3">
         {/* Form */}
         <div className="p-3 border-2 border-solid border-gray-900 rounded-xl mb-2">
@@ -29,14 +29,14 @@ const AdeudoPage = () => {
           <input className='w-full mb-2' type="text" placeholder='Cantidad...' />
         </div>
 
-        <div className="">
+        {/* <div className="">
           <PadNumerico />
-        </div>
+        </div> */}
 
       </div>
-      
+
     </div>
   );
 };
 
-export default AdeudoPage;
+export default ProductoPage;
