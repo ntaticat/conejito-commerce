@@ -1,6 +1,6 @@
 import React from 'react';
-import PadNumerico from '../PadNumerico/PadNumerico';
-import PageHeader from '../PageHeader/PageHeader';
+import PadNumerico from '../../components/PadNumerico/PadNumerico';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 const AdeudoPage = () => {
   return (

@@ -7,6 +7,7 @@ const MainPage = () => {
         <h1>ConejitoCommerce</h1>
       </div>
       <div className="flex flex-wrap">
+        
         <div className="w-6/12 p-3 flex justify-center items-center">
           <button className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
             <span>Adeudos</span>
@@ -15,6 +16,16 @@ const MainPage = () => {
         <div className="w-6/12 p-3 flex justify-center items-center">
           <button className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
             <span>Clientes</span>
+          </button>
+        </div>
+        <div className="w-6/12 p-3 flex justify-center items-center">
+          <button className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
+            <span>Categorias</span>
+          </button>
+        </div>
+        <div className="w-6/12 p-3 flex justify-center items-center">
+          <button className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
+            <span>Productos</span>
           </button>
         </div>
         

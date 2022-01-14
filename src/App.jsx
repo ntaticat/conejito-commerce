@@ -1,18 +1,18 @@
 import './App.css';
-import VentasPage from './components/VentasPage/VentasPage';
-import AdeudosPage from './components/AdeudosPage/AdeudosPage';
-import MainPage from './components/MainPage/MainPage';
-import AdeudoPage from './components/AdeudoPage/AdeudoPage';
-import ProductoPage from './components/ProductoPage/ProductoPage';
-import CategoriasPage from './components/CategoriasPage/CategoriasPage';
+import CategoriasPage from './pages/CategoriasPage/CategoriasPage';
+import MainPage from './pages/MainPage/MainPage';
+import ProductosPage from './pages/ProductosPage/ProductosPage';
 
 function App() {
   return (
     <>
+      {/* <CategoriasPage /> */}
+      {/* <MainPage /> */}
+
+      <ProductosPage />
+
       {/* <AdeudoPage /> */}
       {/* <ProductoPage /> */}
-      <CategoriasPage />
-      {/* <MainPage /> */}
       {/* <AdeudosPage /> */}
       {/* <VentasPage /> */}
     </>
