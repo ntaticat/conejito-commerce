@@ -1,5 +1,5 @@
 import React from 'react';
-import PageHeader from '../PageHeader/PageHeader';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 const ProductoPage = () => {
   return (

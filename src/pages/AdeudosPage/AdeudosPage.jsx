@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 const AdeudosPage = () => {
 
@@ -7,10 +8,7 @@ const AdeudosPage = () => {
 
   return (
     <div className='relative'>
-      <div className="sticky top-0 bg-white border-b-2 border-solid border-gray-900 py-2 px-3 text-center">
-        <h1>Adeudos</h1>
-        <button className='absolute top-0 right-0 py-2 px-3 bg-gray-900 text-white'>Back</button>
-      </div>
+      <PageHeader titulo={"Adeudos"} />
       {/* Clientes */}
       <div className="p-3">
         {list.map((value, i) => (

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const MainPage = () => {
   return (
@@ -7,28 +8,33 @@ const MainPage = () => {
         <h1>ConejitoCommerce</h1>
       </div>
       <div className="flex flex-wrap">
-        
+
         <div className="w-6/12 p-3 flex justify-center items-center">
-          <button className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
+          <Link to="/adeudos" className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
             <span>Adeudos</span>
-          </button>
+          </Link>
         </div>
         <div className="w-6/12 p-3 flex justify-center items-center">
-          <button className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
+          <Link to="/clientes" className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
             <span>Clientes</span>
-          </button>
+          </Link>
         </div>
         <div className="w-6/12 p-3 flex justify-center items-center">
-          <button className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
+          <Link to="/categorias" className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
             <span>Categorias</span>
-          </button>
+          </Link>
         </div>
         <div className="w-6/12 p-3 flex justify-center items-center">
-          <button className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
+          <Link to="/productos" className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
             <span>Productos</span>
-          </button>
+          </Link>
         </div>
-        
+        <div className="w-6/12 p-3 flex justify-center items-center">
+          <Link to="/ventas" className="w-full text-center bg-gray-900 text-white rounded-lg px-3 py-2">
+            <span>Ventas</span>
+          </Link>
+        </div>
+
       </div>
     </div>
   );

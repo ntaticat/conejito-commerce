@@ -1,10 +1,10 @@
 import React from 'react';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 const VentasPage = () => {
   return (
-    <div>
-      <h1>Ventas</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ipsum maiores consequatur rerum delectus voluptate placeat, natus quia aliquid fuga debitis quo, iure dicta illo non id ullam beatae amet.</p>
+    <div className='relative'>
+      <PageHeader titulo={"Ventas"} />
     </div>
   );
 };
