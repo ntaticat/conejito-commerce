@@ -4,9 +4,16 @@ let actions = {
   GET_CATEGORIES_ERROR: "GET_CATEGORIES_ERROR"
 }
 
+const categoria = {
+  name: "",
+  description: "",
+  state: false,
+  categoryType: ""
+};
+
 let initialState = {
   categorias: [],  
-  categoria: null,
+  categoria: {...categoria},
   loading: false,
   error: "",
 };

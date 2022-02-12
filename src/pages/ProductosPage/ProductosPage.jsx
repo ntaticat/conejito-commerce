@@ -1,5 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PageHeader from '../../components/PageHeader/PageHeader';
 
 const ProductosPage = () => {
@@ -30,7 +29,6 @@ const ProductosPage = () => {
       {/* Panel bottom */}
       <div className="sticky left-0 bottom-0 bg-white w-full h-auto border-y-2 border-solid border-gray-900 py-2 px-3 text-center">
         <button className="py-2 px-3 w-full rounded-lg bg-gray-900 text-white">
-          <FontAwesomeIcon icon="faCoffee" />
           Añadir producto
         </button>
 

@@ -3,10 +3,10 @@ import MainPage from './pages/MainPage/MainPage';
 import CategoriasPage from './pages/CategoriasPage/CategoriasPage';
 import ProductosPage from './pages/ProductosPage/ProductosPage';
 import ProductoPage from './pages/ProductoPage/ProductoPage';
-import AdeudosPage from './pages/AdeudosPage/AdeudosPage';
-import AdeudoPage from './pages/AdeudoPage/AdeudoPage';
 import VentasPage from './pages/VentasPage/VentasPage';
+import PagosPage from './pages/PagosPage/PagosPage';
 import './App.css';
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 function App() {
   return (
@@ -16,10 +16,10 @@ function App() {
           <Route path="/productos" element={<ProductosPage />} />
           <Route exac path="/productos/:id" element={<ProductoPage />} />
           <Route path="/categorias" element={<CategoriasPage />} />
-          <Route path="/adeudos" element={<AdeudosPage />} />
-          <Route exac path="/adeudos/:id" element={<AdeudoPage />} />
+          <Route path="/pagos" element={ <PagosPage /> } />
           <Route path="/ventas" element={<VentasPage />} />
           <Route exac path="/" element={<MainPage />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
     </>

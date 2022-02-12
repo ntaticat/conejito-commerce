@@ -1,8 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import PageHeader from '../../components/PageHeader/PageHeader';
 
-const AdeudosPage = () => {
+const PagosPage = () => {
 
   const list = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 
@@ -20,7 +19,6 @@ const AdeudosPage = () => {
       </div>
       <div className="sticky bottom-0 bg-white left-0 w-full h-auto border-y-2 border-solid border-gray-900 py-2 px-3 text-center">
         <button className="py-2 px-3 w-full rounded-lg bg-gray-900 text-white">
-          <FontAwesomeIcon icon="faCoffee" />
           Añadir adeudo
         </button>
 
@@ -29,4 +27,4 @@ const AdeudosPage = () => {
   );
 };
 
-export default AdeudosPage;
+export default PagosPage;
