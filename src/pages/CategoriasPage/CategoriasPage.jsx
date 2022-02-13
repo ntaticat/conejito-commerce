@@ -1,10 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import { Field, Form, Formik } from 'formik';
+import { connect } from 'react-redux';
+import { getCategoriasAction, postCategoryAction } from './../../redux/categoriasDuck';
 
-const CategoriasPage = () => {
+const CategoriasPage = ({ categorias, getCategoriasAction, postCategoryAction }) => {
+
+  useEffect(() => {
+  });
+
+  // getCategoriasAction()();
 
   const [modal, toggleModal] = useState(false);
 
@@ -12,7 +19,29 @@ const CategoriasPage = () => {
     modal ? toggleModal(false) : toggleModal(true);
   }
 
-  const list = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  const renderCategorias = () => {
+    return categorias.map((categoria) => (
+      <div key={categoria._id} className="flex flex-nowrap justify-between items-center first:rounded-t-lg last:rounded-b-lg first:border-t-2 border-b-2 border-x-2 border-solid border-gray-900">
+        <h2 className="py-2 px-3">{categoria.name}</h2>
+        <div className="py-2 px-3 text-center text-xs">
+          <p className='text-sm'>{categoria.products.length}</p>
+          <p>productos</p>
+        </div>
+      </div>
+    ));
+  }
+
+  const onSubmitCategoria = (data) => {
+    data = {
+      ...data,
+      state: Boolean(Number(data.state))
+    }
+    const categoria = {
+      categoria: {...data}
+    }
+    
+    postCategoryAction(categoria);
+  }
 
   return (
     <div className='relative'>
@@ -20,15 +49,7 @@ const CategoriasPage = () => {
 
       {/* Categorias */}
       <div className="p-3">
-        {list.map((value, i) => (
-          <div key={i} className="flex flex-nowrap justify-between items-center first:rounded-t-lg last:rounded-b-lg first:border-t-2 border-b-2 border-x-2 border-solid border-gray-900">
-            <h2 className="py-2 px-3">Nombre de categoría</h2>
-            <div className="py-2 px-3 text-center text-xs">
-              <p className='text-sm'>10</p>
-              <p>productos</p>
-            </div>
-          </div>
-        ))}
+        {renderCategorias()}
       </div>
 
       {/* Formulario */}
@@ -66,9 +87,7 @@ const CategoriasPage = () => {
                 state: "",
                 categoryType: ""
               }}
-              onSubmit={fields => {
-                alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4))
-              }}
+              onSubmit={onSubmitCategoria}
             >
               {({ errors, status, touched }) => (
                 <Form>
@@ -94,7 +113,7 @@ const CategoriasPage = () => {
                     <div role="group" aria-labelledby="categoryType-group">
                       <label htmlFor="categoryType">
                         Producto
-                        <Field name="categoryType" type="radio" checked value="PRODUCT_CATEGORY" />
+                        <Field name="categoryType" type="radio" value="PRODUCT_CATEGORY" />
                       </label>
                       <label htmlFor="categoryType">
                         Facilitador
@@ -112,7 +131,7 @@ const CategoriasPage = () => {
                 </Form>
               )}
             </Formik>
-          
+
           </div>
         </div>
       </div>
@@ -122,4 +141,10 @@ const CategoriasPage = () => {
   );
 };
 
-export default CategoriasPage;
+const mapStateToProps = (store) => {
+  return {
+    categorias: store.categorias.categorias
+  }
+};
+
+export default connect(mapStateToProps, {getCategoriasAction, postCategoryAction})(CategoriasPage);
