@@ -9,7 +9,8 @@ import { getCategoriasAction, postCategoryAction } from './../../redux/categoria
 const CategoriasPage = ({ categorias, getCategoriasAction, postCategoryAction }) => {
 
   useEffect(() => {
-  });
+    getCategoriasAction();
+  }, []);
 
   // getCategoriasAction()();
 
