@@ -1,17 +1,17 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
-import categoriasDuck, { getCategoriasAction } from './categoriasDuck';
+import categoriasDuck from './categoriasDuck';
+import productosDuck from './productosDuck';
 import thunk from 'redux-thunk';
 
 let rootReducer = combineReducers({
-  categorias: categoriasDuck
+  categorias: categoriasDuck,
+  productos: productosDuck
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default function generateStore() {
   let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
-
-  getCategoriasAction()(store.dispatch, store.getState);
 
   return store;
 }
