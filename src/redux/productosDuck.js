@@ -10,7 +10,7 @@ let actions = {
 }
 
 const producto = {
-  _id?: "",
+  _id: "",
   name: "",
   description: "",
   stock: 0,
