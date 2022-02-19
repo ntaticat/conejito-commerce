@@ -3,14 +3,16 @@ import axios from 'axios';
 const http = axios.create({
   baseURL: "https://conejito-commerce-api.herokuapp.com/api",
   headers: {
-    "Content-type": "multipart/form-data",
-    "Accept": "application/json"
+    "Content-type": "multipart/form-data"
   }
 });
 
 export const createImage = (data) => {
+  const {img} = data;
+
   const formData = new FormData();
-  formData.append("img", data);
+  formData.append("img", img);
+
   return http.post("/uploads/image", formData);
 }
 
