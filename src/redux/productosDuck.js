@@ -6,7 +6,15 @@ let actions = {
   GET_PRODUCTS_ERROR: "GET_PRODUCTS_ERROR",
   POST_PRODUCT: "POST_PRODUCT",
   POST_PRODUCT_SUCCESS: "POST_PRODUCT_SUCCESS",
-  POST_PRODUCT_ERROR: "POST_PRODUCT_ERROR"
+  POST_PRODUCT_ERROR: "POST_PRODUCT_ERROR",
+
+  PUT_PRODUCT: "PUT_PRODUCT",
+  PUT_PRODUCT_SUCCESS: "PUT_PRODUCT_SUCCESS",
+  PUT_PRODUCT_ERROR: "PUT_PRODUCT_ERROR",
+
+  GET_PRODUCT: "GET_PRODUCT",
+  GET_PRODUCT_SUCCESS: "GET_PRODUCT_SUCCESS",
+  GET_PRODUCT_ERROR: "GET_PRODUCT_ERROR"
 }
 
 const producto = {
@@ -27,20 +35,36 @@ let initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    // GET CATEGORIES
+    // GET PRODUCTS
     case actions.GET_PRODUCTS:
       return { ...state, loading: true };
     case actions.GET_PRODUCTS_SUCCESS:
       return { ...state, loading: false, productos: [...action.payload] };
     case actions.GET_PRODUCTS_ERROR:
       return { ...state, loading: false, error: action.payload };
-    
-    // POST CATEGORY
+
+    // GET PRODUCT
+    case actions.GET_PRODUCT:
+      return { ...state, loading: true };
+    case actions.GET_PRODUCT_SUCCESS:
+      return { ...state, loading: false, producto: {...action.payload} };
+    case actions.GET_PRODUCT_ERROR:
+      return { ...state, loading: false, error: action.payload };
+
+    // POST PRODUCT
     case actions.POST_PRODUCT:
       return { ...state, loading: true };
     case actions.POST_PRODUCT_SUCCESS:
-      return { ...state, loading: false, producto: {...action.payload} };
+      return { ...state, loading: false, producto: { ...action.payload } };
     case actions.POST_PRODUCT_ERROR:
+      return { ...state, loading: false, error: action.payload };
+
+    // POST PRODUCT
+    case actions.PUT_PRODUCT:
+      return { ...state, loading: true };
+    case actions.PUT_PRODUCT_SUCCESS:
+      return { ...state, loading: false, producto: { ...action.payload } };
+    case actions.PUT_PRODUCT_ERROR:
       return { ...state, loading: false, error: action.payload };
 
     default:
@@ -70,6 +94,25 @@ export const getProductosAction = () => async (dispatch, getState) => {
   }
 };
 
+export const getProductoAction = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: actions.GET_PRODUCT
+    });
+    const responseData = await productosService.getProduct(id);
+    const dbProducto = responseData.data.producto;
+    dispatch({
+      type: actions.GET_PRODUCT_SUCCESS,
+      payload: dbProducto
+    });
+  } catch (error) {
+    dispatch({
+      type: actions.GET_PRODUCT_ERROR,
+      payload: error?.response?.message
+    });
+  }
+};
+
 export const postProductoAction = (producto) => async (dispatch, getState) => {
   try {
     dispatch({
@@ -85,6 +128,26 @@ export const postProductoAction = (producto) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: actions.POST_PRODUCT_ERROR,
+      payload: error.response.message
+    });
+  }
+};
+
+export const putProductoAction = (productoId, productoInfo) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: actions.PUT_PRODUCT
+    });
+    const responseData = await productosService.updateProduct(productoId, productoInfo);
+    const dbProducto = responseData.data.producto;
+    dispatch({
+      type: actions.PUT_PRODUCT_SUCCESS,
+      payload: dbProducto
+    });
+    getProductosAction()(dispatch, getState);
+  } catch (error) {
+    dispatch({
+      type: actions.PUT_PRODUCT_ERROR,
       payload: error.response.message
     });
   }

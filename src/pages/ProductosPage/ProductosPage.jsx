@@ -5,8 +5,9 @@ import React, { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { connect } from 'react-redux';
 import { getProductosAction, postProductoAction } from './../../redux/productosDuck';
+import { Link } from 'react-router-dom';
 
-const ProductosPage = ({productos, getProductosAction, postProductoAction}) => {
+const ProductosPage = ({ productos, getProductosAction, postProductoAction }) => {
 
   useEffect(() => {
     getProductosAction();
@@ -20,18 +21,21 @@ const ProductosPage = ({productos, getProductosAction, postProductoAction}) => {
 
   const renderProductos = () => {
     return productos.map((producto) => (
-      <div key={producto._id} className="flex flex-nowrap justify-between items-center first:rounded-t-lg last:rounded-b-lg first:border-t-2 border-b-2 border-x-2 border-solid border-gray-900 overflow-hidden">
-        <div className="py-2 px-3 w-full">
-          <h2 className="text-base text-center">{producto.name}</h2>
-          <div className="w-full flex flex-nowrap justify-center">
-            <p className='text-sm mx-2'>Stock: <span className='font-semibold'>{producto.stock}</span></p>
-            <p className='text-sm mx-2'>Precio: <span className='font-semibold'>$50</span></p>
+
+      <Link to={`/productos/${producto._id}`} key={producto._id}>
+        <div className="flex flex-nowrap justify-between items-center first:rounded-t-lg last:rounded-b-lg first:border-t-2 border-b-2 border-x-2 border-solid border-gray-900 overflow-hidden">
+          <div className="py-2 px-3 w-full">
+            <h2 className="text-base text-center">{producto.name}</h2>
+            <div className="w-full flex flex-nowrap justify-center">
+              <p className='text-sm mx-2'>Stock: <span className='font-semibold'>{producto.stock}</span></p>
+              <p className='text-sm mx-2'>Precio: <span className='font-semibold'>$50</span></p>
+            </div>
+          </div>
+          <div className="">
+            <img className='h-16 w-32 object-cover object-center' src={(producto.img === "/uploads/default.jpg") ? 'https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' : `https://conejito-commerce-api.herokuapp.com/api/${producto.img}`} alt="" />
           </div>
         </div>
-        <div className="">
-          <img className='h-16 w-32 object-cover object-center' src="https://images.coplusk.net/project_images/208626/image/2019-11-27-210127-burger.jpg" alt="" />
-        </div>
-      </div>
+      </Link>
     ));
   }
 
@@ -41,9 +45,9 @@ const ProductosPage = ({productos, getProductosAction, postProductoAction}) => {
       state: Boolean(Number(data.state))
     }
     const producto = {
-      producto: {...data}
+      producto: { ...data }
     }
-    
+
     postProductoAction(producto);
   }
 
@@ -91,6 +95,8 @@ const ProductosPage = ({productos, getProductosAction, postProductoAction}) => {
                 description: "",
                 stock: 0,
                 state: false,
+                price: 0,
+                cost: 0,
               }}
               onSubmit={onSubmitProducto}
             >
@@ -104,6 +110,12 @@ const ProductosPage = ({productos, getProductosAction, postProductoAction}) => {
 
                     <label htmlFor="stock">Stock</label>
                     <Field name="stock" type="number" className={'form-control' + (errors.state && touched.state ? ' is-invalid' : '')} />
+
+                    <label htmlFor="cost">Costo</label>
+                    <Field name="cost" type="number" className={'form-control' + (errors.cost && touched.cost ? ' is-invalid' : '')} />
+
+                    <label htmlFor="price">Precio</label>
+                    <Field name="price" type="number" className={'form-control' + (errors.price && touched.price ? ' is-invalid' : '')} />
 
                     <div id="state-radio">Estado</div>
                     <div role="group" aria-labelledby="state-radio">
