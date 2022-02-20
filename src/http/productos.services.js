@@ -16,6 +16,14 @@ export const updateProduct = (id, data) => {
 export const deleteProduct = (id) => {
   return http.delete(`productos/${id}`);
 }
+
+export const addProductPrice = (productoId, priceInfo) => {
+  return http.post(`productos/${productoId}`, priceInfo);
+}
+export const removeProductPrice = (productoId, precioId) => {
+  return http.delete(`productos/${productoId}/precios/${precioId}`);
+}
+
 // deleteAll() {
 //   return http.delete(`/categorias`);
 // }

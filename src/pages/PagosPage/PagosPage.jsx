@@ -7,7 +7,7 @@ const PagosPage = () => {
 
   return (
     <div className='relative'>
-      <PageHeader titulo={"Adeudos"} />
+      <PageHeader titulo={"Pagos"} />
       {/* Clientes */}
       <div className="p-3">
         {list.map((value, i) => (

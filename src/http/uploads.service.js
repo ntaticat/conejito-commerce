@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { apiUrl } from '../utils/environments';
 
 const http = axios.create({
-  baseURL: "https://conejito-commerce-api.herokuapp.com/api",
+  baseURL: `${apiUrl}/api`,
   headers: {
     "Content-type": "multipart/form-data"
   }

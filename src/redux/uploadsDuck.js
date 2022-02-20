@@ -1,4 +1,4 @@
-import * as uploadsService from "../http/uploads.services";
+import * as uploadsService from "../http/uploads.service";
 import { putProductoAction } from "../redux/productosDuck";
 
 let actions = {
@@ -35,19 +35,17 @@ export default function reducer(state = initialState, action) {
 
 // Action Creator (Thunk)
 
-export const postImagenAction = (imagenData) => async (dispatch, getState) => {
+export const postImagenAction = (imagenData) => async (dispatch, getStore) => {
   try {
     dispatch({
       type: actions.POST_IMAGE
     });
     const responseData = await uploadsService.createImage(imagenData);
-    console.log("IMAGEN DATA", responseData);
     const imagenInfo = responseData.data.imagenInfo;
-    console.log("IMAGEN INFO", imagenInfo);
 
     dispatch({
       type: actions.POST_IMAGE_SUCCESS,
-      payload: "NORESULT"
+      payload: imagenInfo
     });
   } catch (error) {
     dispatch({
@@ -57,15 +55,19 @@ export const postImagenAction = (imagenData) => async (dispatch, getState) => {
   }
 };
 
-export const updateProductoImageAction = (imagenData, productoId) => async (dispatch, getState) => {
+export const updateProductoImageAction = (imagenData, productoId) => async (dispatch, getStore) => {
   try {
-    await postImagenAction(imagenData)(dispatch, getState);
-    // const updateProducto = {
-    //   producto: {
-    //     img: imagenInfo.
-    //   }
-    // }
-    // putProductoAction()(dispatch, getState);
+    await postImagenAction(imagenData)(dispatch, getStore);
+
+    const { imagenInfo } = getStore().uploads;
+    console.log("path", imagenInfo.path);
+
+    const updateProducto = {
+      producto: {
+        img: imagenInfo.path
+      }
+    }
+    putProductoAction(productoId, updateProducto)(dispatch, getStore);
   } catch (error) {
     console.log("ERROR AL CREAT IMAGEN", error);
   }
