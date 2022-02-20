@@ -7,11 +7,11 @@ const ProductoItem = ({ productoInfo }) => {
 
   return (
     <Link to={`/productos/${productoInfo._id}`} className="flex flex-nowrap justify-between items-center first:rounded-t-lg last:rounded-b-lg first:border-t-2 border-b-2 border-x-2 border-solid border-gray-900 overflow-hidden">
-      <div className="py-2 px-3 w-full">
+      <div className="px-3 w-full">
         <h2 className="text-base text-center">{productoInfo.name}</h2>
         <div className="w-full flex flex-nowrap justify-center">
-          <p className='text-sm mx-2'>Stock: <span className='font-semibold'>{productoInfo.stock}</span></p>
-          <p className='text-sm mx-2'>Precio: <span className='font-semibold'>$50</span></p>
+          <p className='text-xs mx-2 leading-none font-light'>Stock: <span className='text-sm font-normal'>{productoInfo.stock}</span></p>
+          <p className='text-xs mx-2 leading-none font-light'>Precio: <span className='text-sm font-normal'>{`$${productoInfo?.currentPrice?.amount}`}</span></p>
         </div>
       </div>
       <div className="">

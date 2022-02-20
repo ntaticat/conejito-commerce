@@ -4,6 +4,7 @@ let actions = {
   GET_PRODUCTS: "GET_PRODUCTS",
   GET_PRODUCTS_SUCCESS: "GET_PRODUCTS_SUCCESS",
   GET_PRODUCTS_ERROR: "GET_PRODUCTS_ERROR",
+  
   POST_PRODUCT: "POST_PRODUCT",
   POST_PRODUCT_SUCCESS: "POST_PRODUCT_SUCCESS",
   POST_PRODUCT_ERROR: "POST_PRODUCT_ERROR",
@@ -14,8 +15,12 @@ let actions = {
 
   GET_PRODUCT: "GET_PRODUCT",
   GET_PRODUCT_SUCCESS: "GET_PRODUCT_SUCCESS",
-  GET_PRODUCT_ERROR: "GET_PRODUCT_ERROR"
-}
+  GET_PRODUCT_ERROR: "GET_PRODUCT_ERROR",
+
+  POST_PRODUCT_PRECIO: "POST_PRODUCT_PRECIO",
+  POST_PRODUCT_PRECIO_SUCCESS: "POST_PRODUCT_PRECIO_SUCCESS",
+  POST_PRODUCT_PRECIO_ERROR: "POST_PRODUCT_PRECIO_ERROR"
+};
 
 const producto = {
   _id: "",
@@ -65,6 +70,14 @@ export default function reducer(state = initialState, action) {
     case actions.PUT_PRODUCT_SUCCESS:
       return { ...state, loading: false, producto: { ...action.payload } };
     case actions.PUT_PRODUCT_ERROR:
+      return { ...state, loading: false, error: action.payload };
+
+    // POST PRODUCT PRICE
+    case actions.POST_PRODUCT_PRECIO:
+      return { ...state, loading: true };
+    case actions.POST_PRODUCT_PRECIO_SUCCESS:
+      return { ...state, loading: false, producto: { ...action.payload } };
+    case actions.POST_PRODUCT_PRECIO_ERROR:
       return { ...state, loading: false, error: action.payload };
 
     default:
@@ -144,10 +157,32 @@ export const putProductoAction = (productoId, productoInfo) => async (dispatch, 
       type: actions.PUT_PRODUCT_SUCCESS,
       payload: dbProducto
     });
-    getProductosAction()(dispatch, getState);
   } catch (error) {
     dispatch({
       type: actions.PUT_PRODUCT_ERROR,
+      payload: error.response.message
+    });
+  }
+};
+
+export const addProductoPrecioAction = (productoId, precioInfo) => async (dispatch, getStore) => {
+  try {
+    dispatch({
+      type: actions.POST_PRODUCT_PRECIO
+    });
+
+    console.log("productoId", productoId);
+    console.log("precioInfo", precioInfo);
+
+    const responseData = await productosService.addProductPrice(productoId, precioInfo);
+    const dbProducto = responseData.data.producto;
+    dispatch({
+      type: actions.POST_PRODUCT_PRECIO_SUCCESS,
+      payload: dbProducto
+    });
+  } catch (error) {
+    dispatch({
+      type: actions.POST_PRODUCT_PRECIO_ERROR,
       payload: error.response.message
     });
   }

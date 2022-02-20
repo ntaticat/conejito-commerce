@@ -18,7 +18,7 @@ export const deleteProduct = (id) => {
 }
 
 export const addProductPrice = (productoId, priceInfo) => {
-  return http.post(`productos/${productoId}`, priceInfo);
+  return http.post(`productos/${productoId}/precios`, priceInfo);
 }
 export const removeProductPrice = (productoId, precioId) => {
   return http.delete(`productos/${productoId}/precios/${precioId}`);

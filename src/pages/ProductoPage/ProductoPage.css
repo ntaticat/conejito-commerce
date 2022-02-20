@@ -1,0 +1,10 @@
+.product-image-container {
+  position: relative;
+  width: 100%;
+}
+
+.product-image-container::after {
+  content: "";
+  display: block;
+  padding-bottom: 75%;
+}
