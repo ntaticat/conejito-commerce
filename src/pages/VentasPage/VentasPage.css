@@ -1,0 +1,10 @@
+.square-bottom {
+  position: relative;
+  width: 100%;
+}
+
+.square-bottom::after {
+  content: "";
+  display: block;
+  padding-bottom: 50%;
+}

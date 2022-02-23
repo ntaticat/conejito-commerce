@@ -5,7 +5,7 @@ import { getProductosAction, postProductoAction } from './../../redux/productosD
 import ProductoItem from './ProductoItem/ProductoItem';
 import ProductoForm from './ProductoForm/ProductoForm';
 
-const ProductosPage = ({ productos, getProductosAction, postProductoAction }) => {
+const ProductosPage = ({ productos, getProductosAction }) => {
 
   useEffect(() => {
     getProductosAction();
