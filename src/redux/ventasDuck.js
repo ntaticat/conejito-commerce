@@ -36,7 +36,7 @@ let actions = {
 }
 
 const venta = {
-  date: "2021-12-09",
+  date: getDate(),
   total: 117.5,
   paid: true,
   client: null,
@@ -63,7 +63,7 @@ const pago = {
 
 let initialState = {
   ventas: [],
-  venta: {},
+  venta: { ...venta },
   productosVendidos: [],
   pagos: [],
   loading: false,
@@ -79,7 +79,16 @@ export default function reducer(state = initialState, action) {
       return { ...state, pagos: [...action.payload] };
 
     case actions.UPDATE_TOTAL:
-      return { ...state, venta: {...action.payload} };
+      return { ...state, venta: { ...action.payload } };
+
+    case actions.POST_SALE:
+      return { ...state, loading: true };
+
+    case actions.POST_SALE_SUCCESS:
+      return { ...state, loading: false, venta: { ...action.payload } };
+    
+    case actions.POST_SALE_ERROR:
+      return { ...state, loading: false, error: action.payload };
 
     default:
       return state;
@@ -91,12 +100,12 @@ export const addProductSaleAction = (productInfo) => (dispatch, getStore) => {
   const { productosVendidos } = getStore().ventas;
   const productsCopy = [...productosVendidos];
 
-  console.log("product Info", productInfo);
-  console.log("product Price", productInfo.currentPrice);
-
   const newProductoVendido = {
     product: {
-      _id: productInfo._id
+      _id: productInfo._id,
+      name: productInfo.name,
+      img: productInfo.img,
+      stock: productInfo.stock
     },
     price: {
       ...productInfo.currentPrice
@@ -121,7 +130,7 @@ export const removeProductSaleAction = (productId) => (dispatch, getStore) => {
 
   const productIndex = productsCopy.findIndex((productoVendido) => productoVendido.product._id === productId);
 
-  if(productIndex === -1) {
+  if (productIndex === -1) {
     return;
   }
 
@@ -141,7 +150,7 @@ export const increaseQuantityProductAction = (productId) => (dispatch, getStore)
 
   const productIndex = productsCopy.findIndex((productoVendido) => productoVendido.product._id === productId);
 
-  if(productIndex === -1) {
+  if (productIndex === -1) {
     return;
   }
 
@@ -162,7 +171,7 @@ export const decreaseQuantityProductAction = (productId) => (dispatch, getStore)
 
   const productIndex = productsCopy.findIndex((productoVendido) => productoVendido.product._id === productId);
 
-  if(productIndex === -1) {
+  if (productIndex === -1) {
     return;
   }
 
@@ -182,26 +191,74 @@ export const calculateTotalSaleAction = () => (dispatch, getStore) => {
 
   const totalGlobal = productosVendidos.reduce((acumulador, productoVendido) => productoVendido.total + acumulador, 0);
 
-  console.log("totalGlobal", totalGlobal);
-
   venta.total = totalGlobal;
 
   dispatch({
     type: actions.UPDATE_TOTAL,
-    payload: {...venta}
+    payload: { ...venta }
   });
 };
 
-export const registerPaymentAction = (paymentInfo) => (dispatch, getStore) => {
+export const registerPaymentAction = (cantidad, isPagoTotal) => (dispatch, getStore) => {
 
   const { pagos } = getStore().ventas;
   const pagosCopy = [...pagos];
 
+  const pagoTotal = isPagoTotal ? "TOTAL_PAYMENT" : "DEBT_PAYMENT";
+  const date = getDate();
+
+  const paymentInfo = {
+    amount: cantidad,
+    date: date,
+    type: pagoTotal
+  };
+
   pagosCopy.push(paymentInfo);
-  
+
 
   dispatch({
-    type: actions.UPDATE_PRODUCTS_SALE,
+    type: actions.REGISTER_PAYMENT,
     payload: pagosCopy
   });
+};
+
+export const postSaleAction = () => async (dispatch, getStore) => {
+  try {
+    const { venta, productosVendidos, pagos } = getStore().ventas;
+
+    console.log("venta", venta);
+    console.log("productosVendidos", productosVendidos);
+    console.log("pagos", pagos);
+
+    const newVenta = {
+      ...venta,
+      paid: true,
+      client: null,
+      soldProducts: [],
+      payments: []
+    };
+
+    const postData = {
+      venta: newVenta,
+      productosVendidos,
+      pagos
+    };
+
+    console.log("ERROR POST DATA", postData);
+
+    const resultData = await registerSale(postData);
+    const ventaData = resultData.data.venta;
+
+    console.log("VENTA DATA", ventaData);
+
+    dispatch({
+      type: actions.POST_SALE_SUCCESS,
+      payload: ventaData
+    });
+  } catch (error) {
+    dispatch({
+      type: actions.POST_SALE_ERROR,
+      payload: error.message
+    });
+  }
 };

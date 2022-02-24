@@ -45,6 +45,13 @@ const MainPage = () => {
             </div>
           </Link>
         </div>
+        <div className="w-6/12 p-3 flex justify-center items-center">
+          <Link to="/ventas/register" className="text-center bg-gray-900 text-white rounded-lg square-bottom">
+            <div className='absolute w-full h-full flex flex-wrap justify-center items-center'>
+              <span>Registrar Venta</span>
+            </div>
+          </Link>
+        </div>
 
       </div>
     </div>
