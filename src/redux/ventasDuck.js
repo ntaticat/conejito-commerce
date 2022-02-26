@@ -81,13 +81,26 @@ export default function reducer(state = initialState, action) {
     case actions.UPDATE_TOTAL:
       return { ...state, venta: { ...action.payload } };
 
+    // API
     case actions.POST_SALE:
       return { ...state, loading: true };
-
     case actions.POST_SALE_SUCCESS:
       return { ...state, loading: false, venta: { ...action.payload } };
-    
     case actions.POST_SALE_ERROR:
+      return { ...state, loading: false, error: action.payload };
+
+    case actions.GET_SALE:
+      return { ...state, loading: true };
+    case actions.GET_SALE_SUCCESS:
+      return { ...state, loading: false, venta: {...action.payload} };
+    case actions.GET_SALE_ERROR:
+      return { ...state, loading: false, error: action.payload };
+
+    case actions.GET_SALES:
+      return { ...state, loading: true };
+    case actions.GET_SALES_SUCCESS:
+      return { ...state, loading: false, ventas: [...action.payload] };
+    case actions.GET_SALES_ERROR:
       return { ...state, loading: false, error: action.payload };
 
     default:
@@ -258,6 +271,53 @@ export const postSaleAction = () => async (dispatch, getStore) => {
   } catch (error) {
     dispatch({
       type: actions.POST_SALE_ERROR,
+      payload: error.message
+    });
+  }
+};
+
+export const getSalesAction = () => async (dispatch, getStore) => {
+  try {
+
+    dispatch({
+      type: actions.GET_SALES
+    });
+
+    const resultData = await getAllSales();
+    const ventasData = resultData.data.ventas;
+
+    console.log("VENTA DATA", ventasData);
+
+    dispatch({
+      type: actions.GET_SALES_SUCCESS,
+      payload: ventasData
+    });
+  } catch (error) {
+    dispatch({
+      type: actions.GET_SALES_ERROR,
+      payload: error.message
+    });
+  }
+};
+
+export const getSaleAction = (saleId) => async (dispatch, getStore) => {
+  try {
+    dispatch({
+      type: actions.GET_SALE
+    });
+
+    const resultData = await getSale(saleId);
+    const ventaData = resultData.data.venta;
+
+    console.log("VENTA DATA", ventaData);
+
+    dispatch({
+      type: actions.GET_SALE_SUCCESS,
+      payload: ventaData
+    });
+  } catch (error) {
+    dispatch({
+      type: actions.GET_SALE_ERROR,
       payload: error.message
     });
   }
