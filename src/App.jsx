@@ -18,10 +18,10 @@ function App() {
           <Route path="/productos" element={<ProductosPage />} />
           <Route exac path="/productos/:id" element={<ProductoPage />} />
           <Route path="/categorias" element={<CategoriasPage />} />
-          <Route path="/pagos" element={ <PagosPage /> } />
+          <Route path="/pagos" element={<PagosPage />} />
           <Route path="/ventas" element={<VentasPage />} />
-          <Route path="/ventas/register" element={ <RegisterVentaPage />} />
-          <Route exac path="/ventas/:id" element={ <VentaPage /> } />
+          <Route path="/ventas/register" element={<RegisterVentaPage />} />
+          <Route exac path="/ventas/:id" element={<VentaPage />} />
           <Route exac path="/" element={<MainPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

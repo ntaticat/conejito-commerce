@@ -1,9 +1,9 @@
-import PageHeader from '../../components/PageHeader/PageHeader';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getProductosAction, postProductoAction } from './../../redux/productosDuck';
 import ProductoItem from './ProductoItem/ProductoItem';
 import ProductoForm from './ProductoForm/ProductoForm';
+import PageLayout from '../../layouts/PageLayout/PageLayout';
 
 const ProductosPage = ({ productos, getProductosAction }) => {
 
@@ -22,11 +22,9 @@ const ProductosPage = ({ productos, getProductosAction }) => {
   }
 
   return (
-    <div className='relative min-h-screen'>
-      <PageHeader titulo={"Productos"} />
-
+    <PageLayout>
       {/* Productos */}
-      <div className="p-3 min-h-screen">
+      <div className="w-full p-3">
         {renderProductos()}
       </div>
 
@@ -39,7 +37,7 @@ const ProductosPage = ({ productos, getProductosAction }) => {
 
       {/* Form */}
       <ProductoForm modal={modal} onToggleModal={onToggleModal} />
-    </div>
+    </PageLayout>
   );
 };
 

@@ -20,7 +20,7 @@ const ProductoForm = ({ postProductoAction, modal, onToggleModal }) => {
   }
 
   return (
-    <div className={`${modal ? "visible" : "invisible"} fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50`}>
+    <div className={`${modal ? "visible" : "invisible"} z-20 fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50`}>
       <div className="max-w-sm bg-white">
         <div className="flex items-stretch justify-between p-3 bg-gray-900 text-white">
           <h3 className="text-2xl">Añadir Producto</h3>

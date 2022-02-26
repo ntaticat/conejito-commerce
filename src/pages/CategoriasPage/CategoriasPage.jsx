@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import React, { useEffect, useState } from 'react';
-import PageHeader from '../../components/PageHeader/PageHeader';
+import PageLayout from '../../layouts/PageLayout/PageLayout';
 import { Field, Form, Formik } from 'formik';
 import { connect } from 'react-redux';
 import { getCategoriasAction, postCategoryAction } from './../../redux/categoriasDuck';
@@ -38,19 +38,24 @@ const CategoriasPage = ({ categorias, getCategoriasAction, postCategoryAction })
       state: Boolean(Number(data.state))
     }
     const categoria = {
-      categoria: {...data}
+      categoria: { ...data }
     }
-    
+
     postCategoryAction(categoria);
   }
 
   return (
-    <div className='relative'>
-      <PageHeader titulo={"Categorias"} />
-
+    <PageLayout>
       {/* Categorias */}
-      <div className="p-3">
+      <div className="w-full p-3">
         {renderCategorias()}
+      </div>
+
+      {/* Panel bottom */}
+      <div className="sticky bottom-0 bg-white left-0 w-full h-auto border-y-2 border-solid border-gray-900 py-2 px-3 text-center">
+        <button className="py-2 px-3 w-full rounded-lg bg-gray-900 text-white" onClick={onToggleModal}>
+          Añadir categoría
+        </button>
       </div>
 
       {/* Formulario */}
@@ -65,15 +70,8 @@ const CategoriasPage = ({ categorias, getCategoriasAction, postCategoryAction })
         </div>
       </div>
 
-      {/* Panel bottom */}
-      <div className="sticky bottom-0 bg-white left-0 w-full h-auto border-y-2 border-solid border-gray-900 py-2 px-3 text-center">
-        <button className="py-2 px-3 w-full rounded-lg bg-gray-900 text-white" onClick={onToggleModal}>
-          Añadir categoría
-        </button>
-      </div>
-
       {/* Modal */}
-      <div className={`${modal ? "visible" : "invisible"} fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50`}>
+      <div className={`${modal ? "visible" : "invisible"} z-20 fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50`}>
         <div className="max-w-sm bg-white">
           <div className="flex items-stretch justify-between p-3 bg-gray-900 text-white">
             <h3 className="text-2xl">Añadir Categoria</h3>
@@ -136,9 +134,7 @@ const CategoriasPage = ({ categorias, getCategoriasAction, postCategoryAction })
           </div>
         </div>
       </div>
-
-
-    </div>
+    </PageLayout>
   );
 };
 
@@ -148,4 +144,4 @@ const mapStateToProps = (store) => {
   }
 };
 
-export default connect(mapStateToProps, {getCategoriasAction, postCategoryAction})(CategoriasPage);
+export default connect(mapStateToProps, { getCategoriasAction, postCategoryAction })(CategoriasPage);

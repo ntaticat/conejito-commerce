@@ -1,15 +1,13 @@
 import React from 'react';
-import PageHeader from '../../components/PageHeader/PageHeader';
+import PageLayout from '../../layouts/PageLayout/PageLayout';
 
 const PagosPage = () => {
 
-  const list = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+  const list = [1,1,1,1,1];
 
   return (
-    <div className='relative'>
-      <PageHeader titulo={"Pagos"} />
-      {/* Clientes */}
-      <div className="p-3">
+    <PageLayout>
+      <div className="p-3 w-full">
         {list.map((value, i) => (
           <div key={i} className="flex flex-nowrap justify-between first:rounded-t-lg last:rounded-b-lg first:border-t-2 border-b-2 border-x-2 border-solid border-gray-900">
             <h2 className="py-2 px-3">Nombre del cliente</h2>
@@ -23,7 +21,7 @@ const PagosPage = () => {
         </button>
 
       </div>
-    </div>
+    </PageLayout>
   );
 };
 
