@@ -30,7 +30,7 @@ const RegisterVentaPage = ({ productos, getProductosAction }) => {
   return (
     <PageLayout>
       {/* Productos */}
-      <div className={`w-full p-3 ${!showDetalleVenta ? "block" : "hidden"}`}>
+      <div className={`w-full py-4 px-2 ${!showDetalleVenta ? "block" : "hidden"}`}>
         <div className="flex flex-wrap">
           {renderProductos()}
         </div>

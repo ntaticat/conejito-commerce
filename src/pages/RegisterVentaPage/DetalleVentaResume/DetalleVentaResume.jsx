@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 
 const DetalleVentaResume = ({ productosVendidos, toggleDetalleVenta }) => {
   return (
-    <div className="sticky z-30 bottom-0 left-0 w-full text-center flex flex-wrap justify-center">
-
-      <div className="relative bg-white w-11/12 border-t-2 border-x-2 border-solid border-gray-800 max-h-screen overflow-auto  shadow-black shadow-md flex flex-col flex-nowrap rounded-t-lg">
+    <div className="sticky z-20 bottom-0 left-0 w-full text-center flex flex-wrap justify-center">
+      <div className="relative bg-white w-11/12 border-t-2 border-x-2 border-solid border-gray-800 max-h-screen overflow-auto  shadow-gray-500 shadow-md flex flex-col flex-nowrap rounded-t-lg">
         {/* Button */}
         <button className="sticky top-0 left-0 py-2 px-3 w-full h-auto bg-gray-900 text-white flex justify-around" onClick={() => toggleDetalleVenta(true)}>
           Mostrar detalle de la venta <FontAwesomeIcon size='lg' icon={faCaretUp} />
