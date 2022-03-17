@@ -3,12 +3,15 @@ import "./VentasPage.css";
 import PageLayout from '../../layouts/PageLayout/PageLayout';
 import {getSalesAction} from '../../redux/ventasDuck';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-const VentasPage = ({ventas, getSalesAction}) => {
+const VentasPage = () => {
+
+  const dispatch = useDispatch();
+  const { ventas } = useSelector( store => store.ventas );
 
   useEffect(() => {
-    getSalesAction();
+    dispatch(getSalesAction());
   }, []);
 
   return (
@@ -56,4 +59,4 @@ const mapStateToProps = (store) => {
   };
 };
 
-export default connect(mapStateToProps, {getSalesAction})(VentasPage);
+export default VentasPage;

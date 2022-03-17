@@ -1,16 +1,19 @@
 import './RegisterVentaPage.css';
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import { getProductosAction } from '../../redux/productosDuck';
 import DetalleVenta from './DetalleVenta/DetalleVenta';
 import DetalleVentaResume from './DetalleVentaResume/DetalleVentaResume';
 import PageLayout from '../../layouts/PageLayout/PageLayout';
 import ItemSeleccionarProducto from './ItemSeleccionarProducto/ItemSeleccionarProducto';
+import { useDispatch, useSelector } from 'react-redux';
 
-const RegisterVentaPage = ({ productos, getProductosAction }) => {
+const RegisterVentaPage = () => {
+
+  const dispatch = useDispatch();
+  const { productos } = useSelector( store => store.productos );
 
   useEffect(() => {
-    getProductosAction();
+    dispatch(getProductosAction());
   }, []);
 
   const [showDetalleVenta, toggleDetalleVenta] = useState(false);
@@ -42,10 +45,4 @@ const RegisterVentaPage = ({ productos, getProductosAction }) => {
   );
 };
 
-const mapStateToProps = (store) => {
-  return {
-    productos: store.productos.productos
-  };
-};
-
-export default connect(mapStateToProps, { getProductosAction })(RegisterVentaPage);
+export default RegisterVentaPage;

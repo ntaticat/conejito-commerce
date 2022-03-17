@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader/PageHeader';
 import { getProductoAction } from './../../redux/productosDuck';
-import { updateProductoImageAction } from './../../redux/uploadsDuck';
 import ProductoImageForm from './ProductoImageForm/ProductoImageForm';
 import ProductoPriceForm from './ProductoPriceForm/ProductoPriceForm';
 import "./ProductoPage.css"
 import { apiUrl } from '../../utils/environments';
 
-const ProductoPage = ({ producto, getProductoAction, updateProductoImageAction }) => {
+const ProductoPage = () => {
 
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const { producto } = useSelector( store => store.productos );
+
 
   useEffect(() => {
-    getProductoAction(id);
+    dispatch(getProductoAction(id));
   }, [id]);
 
   const [showImageForm, toggleShowImageForm] = useState(false);
@@ -96,10 +98,4 @@ const ProductoPage = ({ producto, getProductoAction, updateProductoImageAction }
   );
 };
 
-const mapStateToProps = (store) => {
-  return {
-    producto: store.productos.producto
-  }
-};
-
-export default connect(mapStateToProps, { getProductoAction, updateProductoImageAction })(ProductoPage);
+export default ProductoPage;

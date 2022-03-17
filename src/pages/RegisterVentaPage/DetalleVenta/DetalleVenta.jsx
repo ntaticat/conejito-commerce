@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown, faCheckCircle, faCheck } from '@fortawesome/free-solid-svg-icons'
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerPaymentAction, postSaleAction } from '../../../redux/ventasDuck';
 import ItemProductoPorVender from './ItemProductoPorVender/ItemProductoPorVender';
 
-const DetalleVenta = ({ venta, productosVendidos, registerPaymentAction, postSaleAction, toggleDetalleVenta }) => {
+const DetalleVenta = ({ toggleDetalleVenta }) => {
+
+  const dispatch = useDispatch();
+  const { venta, productosVendidos } = useSelector( store => store.ventas );
 
   const [isPagoTotal, setIsPagoTotal] = useState(false);
   const [pagoTotal, setPagoTotal] = useState(0);
@@ -26,12 +29,12 @@ const DetalleVenta = ({ venta, productosVendidos, registerPaymentAction, postSal
   };
 
   const registrarPago = () => {
-    registerPaymentAction(pagoTotal, isPagoTotal);
+    dispatch(registerPaymentAction(pagoTotal, isPagoTotal));
   };
 
   const registrarVenta = () => {
     registrarPago();
-    postSaleAction();
+    dispatch(postSaleAction());
   };
 
   return (
@@ -97,12 +100,4 @@ const DetalleVenta = ({ venta, productosVendidos, registerPaymentAction, postSal
   );
 };
 
-const mapStateToProps = (store) => {
-  return {
-    productos: store.productos.productos,
-    venta: store.ventas.venta,
-    productosVendidos: store.ventas.productosVendidos
-  };
-};
-
-export default connect(mapStateToProps, { registerPaymentAction, postSaleAction })(DetalleVenta);
+export default DetalleVenta;

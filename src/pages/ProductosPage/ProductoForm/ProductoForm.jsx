@@ -2,10 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { postProductoAction } from './../../../redux/productosDuck';
 
-const ProductoForm = ({ postProductoAction, modal, onToggleModal }) => {
+const ProductoForm = ({ modal, onToggleModal }) => {
+  
+  const dispatch = useDispatch();
 
   const onSubmitProducto = (data) => {
     data = {
@@ -16,7 +18,7 @@ const ProductoForm = ({ postProductoAction, modal, onToggleModal }) => {
       producto: { ...data }
     }
 
-    postProductoAction(producto);
+    dispatch(postProductoAction(producto));
   }
 
   return (
@@ -77,4 +79,4 @@ const ProductoForm = ({ postProductoAction, modal, onToggleModal }) => {
   );
 };
 
-export default connect(null, {postProductoAction})(ProductoForm);
+export default ProductoForm;

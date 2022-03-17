@@ -3,16 +3,18 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import React, { useEffect, useState } from 'react';
 import PageLayout from '../../layouts/PageLayout/PageLayout';
 import { Field, Form, Formik } from 'formik';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCategoriasAction, postCategoryAction } from './../../redux/categoriasDuck';
 
-const CategoriasPage = ({ categorias, getCategoriasAction, postCategoryAction }) => {
+const CategoriasPage = () => {
+
+  const { categorias } = useSelector( store => store.categorias );
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
-    getCategoriasAction();
+    dispatch(getCategoriasAction());
   }, []);
-
-  // getCategoriasAction()();
 
   const [modal, toggleModal] = useState(false);
 
@@ -41,7 +43,7 @@ const CategoriasPage = ({ categorias, getCategoriasAction, postCategoryAction })
       categoria: { ...data }
     }
 
-    postCategoryAction(categoria);
+    dispatch(postCategoryAction(categoria));
   }
 
   return (
@@ -138,10 +140,4 @@ const CategoriasPage = ({ categorias, getCategoriasAction, postCategoryAction })
   );
 };
 
-const mapStateToProps = (store) => {
-  return {
-    categorias: store.categorias.categorias
-  }
-};
-
-export default connect(mapStateToProps, { getCategoriasAction, postCategoryAction })(CategoriasPage);
+export default CategoriasPage;

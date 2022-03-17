@@ -1,20 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { apiUrl } from '../../../../utils/environments';
 import { decreaseQuantityProductAction, increaseQuantityProductAction } from '../../../../redux/ventasDuck';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 
-const ItemProductoPorVender = ({producto, decreaseQuantityProductAction, increaseQuantityProductAction}) => {
+const ItemProductoPorVender = ({ producto }) => {
+
+  const dispatch = useDispatch();
 
   console.log("INFO DEL PRODUCTO", producto);
 
   const incrementarCantidadProducto = (productId) => {
-    increaseQuantityProductAction(productId);
+    dispatch(increaseQuantityProductAction(productId));
   };
 
   const decrementarCantidadProducto = (productId) => {
-    decreaseQuantityProductAction(productId);
+    dispatch(decreaseQuantityProductAction(productId));
   };
 
   const puedeIncrementar = (productVenderInfo) => {
@@ -54,4 +56,4 @@ const ItemProductoPorVender = ({producto, decreaseQuantityProductAction, increas
   );
 };
 
-export default connect(null, {decreaseQuantityProductAction, increaseQuantityProductAction})(ItemProductoPorVender);
+export default ItemProductoPorVender;

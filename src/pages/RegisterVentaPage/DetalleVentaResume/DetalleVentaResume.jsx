@@ -1,9 +1,12 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretUp } from '@fortawesome/free-solid-svg-icons'
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-const DetalleVentaResume = ({ productosVendidos, toggleDetalleVenta }) => {
+const DetalleVentaResume = ({ toggleDetalleVenta }) => {
+
+  const { productosVendidos } = useSelector( store => store.ventas );
+
   return (
     <div className="sticky z-20 bottom-0 left-0 w-full text-center flex flex-wrap justify-center">
       <div className="relative bg-white w-11/12 border-t-2 border-x-2 border-solid border-gray-800 max-h-screen overflow-auto  shadow-gray-500 shadow-md flex flex-col flex-nowrap rounded-t-lg">
@@ -24,10 +27,4 @@ const DetalleVentaResume = ({ productosVendidos, toggleDetalleVenta }) => {
   );
 };
 
-const mapStateToProps = (store) => {
-  return {
-    productosVendidos: store.ventas.productosVendidos
-  };
-};
-
-export default connect(mapStateToProps, {})(DetalleVentaResume);
+export default DetalleVentaResume;

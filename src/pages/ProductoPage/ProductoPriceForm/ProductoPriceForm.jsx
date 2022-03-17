@@ -1,9 +1,11 @@
 import { Field, Form, Formik } from 'formik';
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addProductoPrecioAction } from './../../../redux/productosDuck';
 
-const ProductoPriceForm = ({ producto, addProductoPrecioAction }) => {
+const ProductoPriceForm = () => {
+
+  const dispatch = useDispatch();
+  const { producto } = useSelector( store => store.productos );
 
   const onSubmitPrice = async (data) => {
     const reqData = {
@@ -12,7 +14,7 @@ const ProductoPriceForm = ({ producto, addProductoPrecioAction }) => {
       }
     };
 
-    await addProductoPrecioAction(producto._id, reqData);
+    dispatch(addProductoPrecioAction(producto._id, reqData));
   }
 
   return (
@@ -45,10 +47,4 @@ const ProductoPriceForm = ({ producto, addProductoPrecioAction }) => {
   );
 };
 
-const mapStateToProps = (store) => {
-  return {
-    producto: store.productos.producto
-  }
-};
-
-export default connect(mapStateToProps, { addProductoPrecioAction })(ProductoPriceForm);
+export default ProductoPriceForm;

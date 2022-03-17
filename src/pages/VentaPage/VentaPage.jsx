@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PageLayout from '../../layouts/PageLayout/PageLayout';
 import { getSaleAction } from '../../redux/ventasDuck';
 
-const VentaPage = ({ venta, getSaleAction }) => {
+const VentaPage = () => {
 
   const { id } = useParams();
 
+  const dispatch = useDispatch();
+  const { venta } = useSelector( store => store.ventas );
+
   useEffect(() => {
-    getSaleAction(id);
+    dispatch(getSaleAction(id));
   }, [id]);
 
   return (
@@ -25,4 +28,4 @@ const mapStateToProps = (store) => {
   };
 };
 
-export default  connect(mapStateToProps, { getSaleAction })(VentaPage);
+export default VentaPage;

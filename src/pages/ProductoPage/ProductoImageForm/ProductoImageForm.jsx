@@ -1,14 +1,16 @@
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateProductoImageAction } from './../../../redux/uploadsDuck';
 
-const ProductoImageForm = ({ producto, updateProductoImageAction }) => {
+const ProductoImageForm = () => {
 
+  const dispatch = useDispatch();
+  const { producto } = useSelector( store => store.productos );
   const [imageBlob, setImageBlob] = useState(undefined);
 
   const onSubmitImage = async (data) => {
-    await updateProductoImageAction(data, producto._id);
+    dispatch(updateProductoImageAction(data, producto._id));
   }
 
   const convertImageToBlob = async (imgData) => {
@@ -55,10 +57,4 @@ const ProductoImageForm = ({ producto, updateProductoImageAction }) => {
   );
 };
 
-const mapStateToProps = (store) => {
-  return {
-    producto: store.productos.producto
-  }
-};
-
-export default connect(mapStateToProps, { updateProductoImageAction })(ProductoImageForm);
+export default ProductoImageForm;

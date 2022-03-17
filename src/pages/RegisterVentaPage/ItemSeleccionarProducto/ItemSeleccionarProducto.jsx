@@ -3,9 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { addProductSaleAction, removeProductSaleAction } from '../../../redux/ventasDuck';
 import { apiUrl } from '../../../utils/environments';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-const ItemSeleccionarProducto = ({ productosVendidos, addProductSaleAction, removeProductSaleAction, producto }) => {
+const ItemSeleccionarProducto = ({ producto }) => {
+
+  const dispatch = useDispatch();
+  const { productosVendidos } = useSelector( store => store.ventas );
+
 
   const checkProductoSeleccionado = (productId) => {
 
@@ -29,11 +33,11 @@ const ItemSeleccionarProducto = ({ productosVendidos, addProductSaleAction, remo
   };
 
   const agregarProducto = (productInfo) => {
-    addProductSaleAction(productInfo);
+    dispatch(addProductSaleAction(productInfo));
   };
 
   const removerProducto = (productId) => {
-    removeProductSaleAction(productId);
+    dispatch(removeProductSaleAction(productId));
   };
 
   const isSelectedProduct = () => {
@@ -69,10 +73,4 @@ const ItemSeleccionarProducto = ({ productosVendidos, addProductSaleAction, remo
   );
 };
 
-const mapStateToProps = (store) => {
-  return {
-    productosVendidos: store.ventas.productosVendidos
-  };
-};
-
-export default connect(mapStateToProps, { addProductSaleAction, removeProductSaleAction })(ItemSeleccionarProducto);
+export default ItemSeleccionarProducto;

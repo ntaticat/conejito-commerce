@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { getProductosAction, postProductoAction } from './../../redux/productosDuck';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductosAction } from './../../redux/productosDuck';
 import ProductoItem from './ProductoItem/ProductoItem';
 import ProductoForm from './ProductoForm/ProductoForm';
 import PageLayout from '../../layouts/PageLayout/PageLayout';
 
-const ProductosPage = ({ productos, getProductosAction }) => {
+const ProductosPage = () => {
+
+  const dispatch = useDispatch();
+  const { productos } = useSelector( store => store.productos );
 
   useEffect(() => {
-    getProductosAction();
+    dispatch(getProductosAction());
   }, []);
 
   const [modal, toggleModal] = useState(false);
@@ -41,10 +44,4 @@ const ProductosPage = ({ productos, getProductosAction }) => {
   );
 };
 
-const mapStateToProps = (store) => {
-  return {
-    productos: store.productos.productos
-  }
-};
-
-export default connect(mapStateToProps, { getProductosAction, postProductoAction })(ProductosPage);
+export default ProductosPage;
