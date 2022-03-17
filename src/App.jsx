@@ -15,11 +15,11 @@ function App() {
       <Routes>
         <Route path="/categorias" element={<CategoriasPage />} />
         <Route path="/productos" element={<ProductosPage />} />
-        <Route exac path="/productos/:id" element={<ProductoPage />} />
+        <Route path="/productos/:id" element={<ProductoPage />} />
         <Route path="/ventas" element={<VentasPage />} />
-        <Route exac path="/ventas/:id" element={<VentaPage />} />
+        <Route path="/ventas/:id" element={<VentaPage />} />
         <Route path="/ventas/register" element={<RegisterVentaPage />} />
-        <Route exac path="/" element={<MainPage />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>

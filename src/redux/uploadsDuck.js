@@ -1,7 +1,7 @@
 import * as uploadsService from "../http/uploads.service";
 import { putProductoAction } from "../redux/productosDuck";
 
-let actions = {
+const actions = {
   POST_IMAGE: "POST_IMAGE",
   POST_IMAGE_SUCCESS: "POST_IMAGE_SUCCESS",
   POST_IMAGE_ERROR: "POST_IMAGE_ERROR",
@@ -34,41 +34,44 @@ export default function reducer(state = initialState, action) {
 }
 
 // Action Creator (Thunk)
-
-export const postImagenAction = (imagenData) => async (dispatch, getStore) => {
-  try {
-    dispatch({
-      type: actions.POST_IMAGE
-    });
-    const responseData = await uploadsService.createImage(imagenData);
-    const imagenInfo = responseData.data.imagenInfo;
-
-    dispatch({
-      type: actions.POST_IMAGE_SUCCESS,
-      payload: imagenInfo
-    });
-  } catch (error) {
-    dispatch({
-      type: actions.POST_IMAGE_ERROR,
-      payload: error.response.message
-    });
-  }
+export const postImagenAction = (imagenData) => {
+  return async (dispatch, getStore) => {
+    try {
+      dispatch({
+        type: actions.POST_IMAGE
+      });
+      const responseData = await uploadsService.createImage(imagenData);
+      const imagenInfo = responseData.data.imagenInfo;
+  
+      dispatch({
+        type: actions.POST_IMAGE_SUCCESS,
+        payload: imagenInfo
+      });
+    } catch (error) {
+      dispatch({
+        type: actions.POST_IMAGE_ERROR,
+        payload: error.response.message
+      });
+    }
+  };
 };
 
-export const updateProductoImageAction = (imagenData, productoId) => async (dispatch, getStore) => {
-  try {
-    await postImagenAction(imagenData)(dispatch, getStore);
-
-    const { imagenInfo } = getStore().uploads;
-    console.log("path", imagenInfo.path);
-
-    const updateProducto = {
-      producto: {
-        img: imagenInfo.path
+export const updateProductoImageAction = (imagenData, productoId) => {
+  return async (dispatch, getStore) => {
+    try {
+      dispatch(postImagenAction(imagenData))
+  
+      const { imagenInfo } = getStore().uploads;
+      console.log("path", imagenInfo.path);
+  
+      const updateProducto = {
+        producto: {
+          img: imagenInfo.path
+        }
       }
+      dispatch(putProductoAction(productoId, updateProducto));
+    } catch (error) {
+      console.log("ERROR AL CREAT IMAGEN", error);
     }
-    putProductoAction(productoId, updateProducto)(dispatch, getStore);
-  } catch (error) {
-    console.log("ERROR AL CREAT IMAGEN", error);
-  }
+  };
 };
