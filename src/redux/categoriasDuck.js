@@ -1,4 +1,4 @@
-import { getAllCategories, createCategory } from "../http/categorias.service";
+import { getAllCategories, createCategory } from "../services/categorias.service";
 
 const actions = {
   GET_CATEGORIES: "GET_CATEGORIES",

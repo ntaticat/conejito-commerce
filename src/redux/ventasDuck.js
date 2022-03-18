@@ -1,4 +1,4 @@
-import { getAllSales, getSale, registerSale } from "../http/ventas.service";
+import { getAllSales, getSale, registerSale } from "../services/ventas.service";
 import { getDate } from "../utils/dates.utility";
 
 const actions = {

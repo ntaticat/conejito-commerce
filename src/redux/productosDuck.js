@@ -1,4 +1,4 @@
-import * as productosService from "../http/productos.services";
+import * as productosService from "../services/productos.services";
 
 const actions = {
   GET_PRODUCTS: "GET_PRODUCTS",

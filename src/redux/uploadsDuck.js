@@ -1,4 +1,4 @@
-import * as uploadsService from "../http/uploads.service";
+import * as uploadsService from "../services/uploads.service";
 import { putProductoAction } from "../redux/productosDuck";
 
 const actions = {

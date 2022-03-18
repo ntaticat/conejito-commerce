@@ -1,15 +1,13 @@
 import React from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { apiUrl } from '../../../../utils/environments';
-import { decreaseQuantityProductAction, increaseQuantityProductAction } from '../../../../redux/ventasDuck';
+import { decreaseQuantityProductAction, increaseQuantityProductAction, removeProductSaleAction } from '../../../../redux/ventasDuck';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle, faMinusCircle, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const ItemProductoPorVender = ({ producto }) => {
 
   const dispatch = useDispatch();
-
-  console.log("INFO DEL PRODUCTO", producto);
 
   const incrementarCantidadProducto = (productId) => {
     dispatch(increaseQuantityProductAction(productId));
@@ -30,10 +28,14 @@ const ItemProductoPorVender = ({ producto }) => {
       decrementarCantidadProducto(productVenderInfo.product._id);
     }
   };
+  
+  const removerProducto = (productVenderInfo) => {
+    dispatch(removeProductSaleAction(productVenderInfo.product._id));
+  };
 
   return (
-    <div key={producto.product._id} className="w-full py-2">
-      <div className="p-2 border-x-2 border-t-2 border-solid border-gray-500 rounded-t-lg overflow-hidden flex flex-nowrap justify-between items-center">
+    <div className="w-full">
+      <div className="p-2 first:border-t-0 border-t-2 border-solid border-gray-500 overflow-hidden flex flex-nowrap justify-between items-center">
         {/* Imagen */}
         <div className="w-20 h-12 bg-black rounded-lg overflow-hidden">
           <img className='w-full h-full object-cover object-center' src={`${apiUrl}/${producto?.product?.img}`} alt="" />
@@ -48,8 +50,13 @@ const ItemProductoPorVender = ({ producto }) => {
 
 
       </div>
-      <div className="w-full flex flex-nowrap border-2 border-solid border-gray-500 rounded-b-lg overflow-hidden">
-        <button onClick={() => puedeDecrementar(producto)} className='w-full px-2 py-2 text-gray-900 bg-white'><FontAwesomeIcon size='1x' icon={faMinusCircle} /></button>
+      <div className="w-full flex flex-nowrap border-t-2 border-b-2 border-solid border-gray-500 overflow-hidden">
+        {
+          producto.amount > 1 ?
+          (<button onClick={() => puedeDecrementar(producto)} className='w-full px-2 py-2 text-gray-900 bg-white'><FontAwesomeIcon size='1x' icon={faMinusCircle} /></button>) 
+          : 
+          (<button onClick={() => removerProducto(producto)} className='w-full px-2 py-2 text-gray-900 bg-white'><FontAwesomeIcon size='1x' icon={faTrash} /></button>) 
+        }
         <button onClick={() => puedeIncrementar(producto)} className='w-full px-2 py-2 text-white bg-gray-900'><FontAwesomeIcon size='1x' icon={faPlusCircle} /></button>
       </div>
     </div>
