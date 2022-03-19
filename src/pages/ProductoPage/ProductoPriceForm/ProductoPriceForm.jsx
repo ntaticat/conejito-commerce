@@ -27,18 +27,18 @@ const ProductoPriceForm = () => {
     >
       {({ setFieldValue }) => (
         <Form>
-          <div className="">
+          <div className="w-full">
 
             <label htmlFor="amount">Precio</label>
-            <Field name="amount" type="number" />
+            <Field className="text-center px-3 py-1 w-full rounded-sm border-2 border-solid border-gray-300 outline-gray-500" name="amount" type="number" />
 
-            <label htmlFor="amount">Costo</label>
-            <Field name="cost" type="number" />
+            <label htmlFor="cost">Costo</label>
+            <Field className="text-center px-3 py-1 w-full rounded-sm border-2 border-solid border-gray-300 outline-gray-500" name="cost" type="number" />
 
           </div>
-          <div className="mt-3">
-            <button type="submit" className="px-4 py-2 mr-2 text-white bg-green-600 rounded">Añadir</button>
-            <button type="reset" className="px-4 py-2 mr-2 text-white bg-gray-600 rounded">Vaciar</button>
+          <div className="w-full mt-3">
+            <button type="submit" className="w-full px-4 py-2 mr-2 text-white bg-green-600 rounded-t-md">Actualizar precio</button>
+            <button type="reset" className="w-full px-4 py-2 mr-2 text-white bg-gray-600 rounded-b-md">Resear valores</button>
           </div>
 
         </Form>

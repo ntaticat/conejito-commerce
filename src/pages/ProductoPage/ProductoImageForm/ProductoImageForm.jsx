@@ -32,25 +32,23 @@ const ProductoImageForm = () => {
       onSubmit={onSubmitImage}
     >
       {({ setFieldValue }) => (
-        <Form>
-          <div className="form-group">
-            <label htmlFor="img">Nombre</label>
+        <Form className='w-full'>
+          <div className="w-full">
+            <label htmlFor="img">Imagen</label>
             <input name="img" type="file" accept="image/png, image/jpeg" onChange={(event) => {
               const imgData = event.currentTarget.files[0];
               setFieldValue("img", imgData);
               convertImageToBlob(imgData);
-            }} className="form-control" />
+            }} className="w-full" />
           </div>
-          <div className="mt-3">
+          <div className="mt-3 w-full">
             {!!imageBlob &&
-              <img className='w-full' src={imageBlob} alt="ProductImage" />
+              <img className='w-full rounded-md' src={imageBlob} alt="ProductImage" />
             }
           </div>
-          <div className="mt-3">
-            <button type="submit" className="px-4 py-2 mr-2 text-white bg-green-600 rounded">Añadir</button>
-            <button type="reset" className="px-4 py-2 mr-2 text-white bg-gray-600 rounded">Vaciar</button>
+          <div className="mt-3 w-full">
+            <button type="submit" className="w-full px-4 py-2 mr-2 text-white bg-green-600 rounded-md">Cambiar imagen</button>
           </div>
-
         </Form>
       )}
     </Formik>

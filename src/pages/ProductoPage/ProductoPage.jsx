@@ -7,12 +7,13 @@ import ProductoImageForm from './ProductoImageForm/ProductoImageForm';
 import ProductoPriceForm from './ProductoPriceForm/ProductoPriceForm';
 import "./ProductoPage.css"
 import { apiUrl } from '../../utils/environments';
+import ModalForm from '../../layouts/ModalForm/ModalForm';
 
 const ProductoPage = () => {
 
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { producto } = useSelector( store => store.productos );
+  const { producto } = useSelector(store => store.productos);
 
 
   useEffect(() => {
@@ -21,6 +22,14 @@ const ProductoPage = () => {
 
   const [showImageForm, toggleShowImageForm] = useState(false);
   const [showPriceForm, toggleShowPriceForm] = useState(false);
+
+  const closeImageModal = () => {
+    toggleShowImageForm(false);
+  }
+
+  const closePriceModal = () => {
+    toggleShowPriceForm(false);
+  }
 
   return (
     <div className='relative'>
@@ -38,7 +47,7 @@ const ProductoPage = () => {
           </div>
         </div>
 
-        <h1 className='py-3 text-center'>{producto?.name}</h1>
+        <h1 className='py-3 text-lg text-center'>{producto?.name}</h1>
 
         <div className="px-3 pb-3">
           <p className='text-center text-sm font-light'>
@@ -75,23 +84,37 @@ const ProductoPage = () => {
 
       </div>
 
-      <div className="p-3">
-        <button className="py-2 px-3 w-full rounded-lg bg-gray-900 text-white" onClick={() => toggleShowImageForm(!showImageForm)}>
+      <div className="px-3 pb-3 flex flex-nowrap gap-1">
+        <button
+          className="py-2 px-3 w-full rounded-md bg-gray-800 text-white border-b-2 border-solid border-gray-500"
+          onClick={() => toggleShowImageForm(!showImageForm)}
+        >
           Cambiar imagen
         </button>
-        <button className="py-2 px-3 w-full rounded-lg bg-gray-900 text-white" onClick={() => toggleShowPriceForm(!showPriceForm)}>
+        <button
+          className="py-2 px-3 w-full rounded-md bg-gray-800 text-white"
+          onClick={() => toggleShowPriceForm(!showPriceForm)}
+        >
           Cambiar precio
         </button>
       </div>
 
-      <div className="p-3">
-        {/* Formulario */}
+      {/* Formularios */}
+      <div>
         {showImageForm &&
-          <ProductoImageForm />
+          (
+            <ModalForm closeFormFn={closeImageModal}>
+              <ProductoImageForm />
+            </ModalForm>
+          )
         }
 
         {showPriceForm &&
-          <ProductoPriceForm />
+          (
+            <ModalForm closeFormFn={closePriceModal}>
+              <ProductoPriceForm />
+            </ModalForm>
+          )
         }
       </div>
     </div>
